@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  height:100vh;
+  background:
+    radial-gradient(circle at 30% 20%, #2b4a7a, transparent),
+    radial-gradient(circle at 70% 80%, #0a1435, transparent),
+    linear-gradient(180deg, #020824, #050b1e);
+  background-size:200% 200%;
+  animation:bgBreathe 18s ease-in-out infinite;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  color:#eaf0ff;
+}
+
+@keyframes bgBreathe{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+
+/* floating hearts + stars */
+.float{
+  position:fixed;
+  opacity:.6;
+  animation:floatUp 10s linear forwards;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(100vh) scale(0.8);}
+  100%{transform:translateY(-20vh) scale(1.3);}
+}
+
+/* fireflies */
+.firefly{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:#ffd;
+  border-radius:50%;
+  box-shadow:0 0 12px #ffd;
+  opacity:.6;
+  animation:firefly 6s ease-in-out infinite;
+}
+
+@keyframes firefly{
+  0%,100%{transform:translate(0,0);opacity:.3}
+  50%{transform:translate(40px,-60px);opacity:.9}
+}
+
+/* butterfly */
+.butterfly{
+  position:fixed;
+  font-size:22px;
+  animation:butterfly 20s ease-in-out infinite;
+}
+
+@keyframes butterfly{
+  0%{transform:translate(-10vw,100vh) rotate(0deg)}
+  50%{transform:translate(50vw,30vh) rotate(10deg)}
+  100%{transform:translate(110vw,-20vh) rotate(-10deg)}
+}
+
+/* card */
+.card{
+  width:90%;
+  max-width:520px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(30px);
+  border-radius:32px;
+  padding:52px;
+  text-align:center;
+  box-shadow:0 40px 120px rgba(0,0,0,.6);
+  animation:fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.9);}
+  to{opacity:1;transform:scale(1);}
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:2.4rem;
+  margin-bottom:20px;
+}
+
+p{
+  font-size:1.08rem;
+  line-height:1.9;
+  opacity:.92;
+}
+
+/* buttons */
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:35px;
+}
+
+button{
+  padding:14px 36px;
+  font-size:1.05rem;
+  border-radius:40px;
+  border:none;
+  cursor:pointer;
+  transition: transform 0.1s ease;
+}
+
+.yes{
+  background:#dbe7ff;
+  color:#1b2b52;
+}
+
+.yes:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 30px rgba(219,231,255,.6);
+}
+
+.no{
+  background:transparent;
+  color:#dbe7ff;
+  border:1px solid rgba(219,231,255,.5);
+  transition: transform 0.1s ease;
+}
+
+/* heart */
+.heart{
+  font-size:72px;
+  margin:26px 0;
+  animation:heartBeat 1.7s infinite;
+}
+
+@keyframes heartBeat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.18);}
+}
+
+/* fade */
+.fade{
+  animation:fadeOut .8s ease forwards;
+}
+
+@keyframes fadeOut{
+  to{opacity:0;transform:scale(.95);}
+}
+
+/* confetti hearts */
+.confetti{
+  position:fixed;
+  font-size:18px;
+  pointer-events:none;
+  animation:fall 5s linear forwards;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-20px) rotate(0deg); opacity:1;}
+  100%{transform:translateY(110vh) rotate(360deg); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card"></div>
+
+<script>
+const card = document.getElementById("card");
+let page = 0;
+
+/* ROMANTIC LINES */
+const pages = [
+
+() => `
+  <h1>Hey Bangara🥺…</h1>
+  <p>
+    Nan yawa januma dalli hen punya madide gothella.<br><br>
+    Nin anta punayavanthi hudugi sikidale🥺😚<br>
+    Nan yawaglu nin jothe ne irbekuu kanrii😫😫.
+  </p>
+  <button class="yes" onclick="next()">Nan jothe iruu(click madu😅)</button>
+`,
+
+() => `
+  <h1>You're Mine🥹</h1>
+  <p>
+    I'm Always loving you until my last breath.<br>
+    I will choose only you over every world.<br><br>
+    Be my gurl, wifeyy, bestfriend, mother👸, my everything.<br>
+    And somehow… that stayed with me.
+  </p>
+  <button class="yes" onclick="next()">Let's continue 💙</button>
+`,
+
+() => `
+  <div class="heart">💙</div>
+  <h1>Nen nanna ista paduu 😁</h1>
+  <p>
+    Nan maathu keluu.<br>
+    Nanna paatasiko🫣.<br><br>
+    Kushi agi irtheya, nin kushi ne nan ksuhi —<br>
+    Ibru seri kushi agi ottige ironaa🫂.
+  </p>
+  <div class="buttons">
+    <button class="yes" onclick="yes()">Yes 💙</button>
+    <button class="no" onmouseover="moveNo(this)">No 😜</button>
+  </div>
+`
+];
+
+function render(){
+  card.innerHTML = pages[page]();
+}
+
+function next(){
+  card.classList.add("fade");
+  setTimeout(()=>{
+    page++;
+    render();
+    card.classList.remove("fade");
+  },700);
+}
+
+/* super fast No button */
+function moveNo(btn){
+    const x = Math.random() * 300 - 150; 
+    const y = Math.random() * 300 - 150; 
+    const rotate = Math.random() * 30 - 15; 
+    btn.style.transform = `translate(${x}px, ${y}px) rotate(${rotate}deg)`;
+}
+
+/* YES PAGE */
+function yes(){
+  card.innerHTML = `
+    <div class="heart">💙</div>
+    <h1>NANU NIMANNA TUMBAAAAA ISTAAA PADTHENEEEEE🫣🫣</h1>
+    <p>
+      Happy Valentine's Day My Queen.<br>
+      I love you every second, every minute, every hour.<br><br>
+      Every day, every week, every month, every year…<br>
+      Be My RCB😉, I will be your Virat🙈.
+    </p>
+    <p style="margin-top:18px;opacity:.85">
+      I will stay with you through harder days and celebrate your success🤞.
+    </p>
+  `;
+
+  // Trigger full confetti hearts
+  startConfetti();
+}
+
+/* faster floating hearts + stars */
+function spawnFloat() {
+  const f = document.createElement("div");
+  f.className = "float";
+  f.innerHTML = Math.random() > 0.5 ? "💙" : "✦";
+  f.style.left = Math.random() * 100 + "vw";
+  f.style.fontSize = 12 + Math.random() * 14 + "px";
+  document.body.appendChild(f);
+  setTimeout(() => f.remove(), 10000);
+}
+
+// Spawn stars immediately on page load
+for (let i = 0; i < 20; i++) spawnFloat();
+
+// Then continue spawning every 80ms
+setInterval(spawnFloat, 80);
+
+/* fireflies */
+setInterval(()=>{
+  const ff=document.createElement("div");
+  ff.className="firefly";
+  ff.style.left=Math.random()*100+"vw";
+  ff.style.top=Math.random()*100+"vh";
+  document.body.appendChild(ff);
+  setTimeout(()=>ff.remove(),60000);
+},700);
+
+/* butterflies */
+setInterval(()=>{
+  const b=document.createElement("div");
+  b.className="butterfly";
+  b.innerHTML="🦋";
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),20000);
+},3500);
+render();
+</script>
+
+</body>
+</html>
